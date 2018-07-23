@@ -12,17 +12,36 @@ configure :development do
   BetterErrors.application_root = File.expand_path('..', __FILE__)
 end
 
+cookbook = Cookbook.new('data/cookbook.csv')
+
 get '/' do
-  cookbook = Cookbook.new('data/cookbook.csv')
   @recipes = cookbook.all
   erb :index
 end
 
 get '/new' do
+  erb :new
 end
 
-get '/edit/:index' do
+post '/new' do
+  recipe = Recipe.new(params)
+  cookbook.add_recipe(recipe)
+  redirect '/'
+end
+
+get '/recipe/:index' do
+  @index = params['index'].to_i
+  @recipe = cookbook.find(@index)
+  erb :recipe
+end
+
+get '/done/:index' do
+  cookbook.mark_as_done(params['index'].to_i)
+  redirect '/'
 end
 
 get '/delete/:index' do
+  cookbook.remove_recipe(params[:index].to_i)
+  redirect '/'
 end
+

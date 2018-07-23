@@ -6,9 +6,15 @@
     No recipes
   <% else %>
     <% @recipes.each_with_index do |recipe, index| %>
-      <li><%= recipe.name %></li>
-      <a href="/edit/index">Edit</a>
-      <a href="/delete/index">Delete</a>
+      <li>
+        <a href=<%="/recipe/#{index}"%>><%= recipe.name %></a>
+        <% if recipe.done? %>
+          <i class="far fa-check-square"></i>
+        <% else %>
+          <a href=<%="/done/#{index}"%>><i class="far fa-square"></i></a>
+        <% end %>
+        <a href=<%="/delete/#{index}"%>><i class="far fa-trash-alt"></i></a>
+      </li>
     <% end %>
   <% end %>
 </ul>

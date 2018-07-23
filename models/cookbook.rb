@@ -21,6 +21,10 @@ class Cookbook
     @recipes
   end
 
+  def find(index)
+    @recipes[index]
+  end
+
   def add_recipe(recipe)
     @recipes << recipe
     save_csv_recipes
@@ -33,6 +37,7 @@ class Cookbook
 
   def mark_as_done(index)
     @recipes[index].done!
+    save_csv_recipes
   end
 
   def save_csv_recipes
