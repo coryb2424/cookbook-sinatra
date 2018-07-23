@@ -1,3 +1,14 @@
-<p>
-  Hello
-</p>
+<h1>Amazing CookBook</h1>
+<h2>Recipes</h2>
+<a href="/new">New Recipe</a>
+<ul>
+  <% if @recipes.empty? %>
+    No recipes
+  <% else %>
+    <% @recipes.each_with_index do |recipe, index| %>
+      <li><%= recipe.name %></li>
+      <a href="/edit/index">Edit</a>
+      <a href="/delete/index">Delete</a>
+    <% end %>
+  <% end %>
+</ul>
